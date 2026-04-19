@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alastair Hadwen — Product</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0e0e0c;
+  --paper: #f5f2eb;
+  --paper2: #ede9df;
+  --accent: #c84b2f;
+  --mid: #7a7568;
+  --light: #b8b2a4;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Instrument Sans', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--ink);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  cursor: none;
+  display: flex;
+  justify-content: center;
+}
+
+#site-wrap {
+  width: 100%;
+  max-width: 1280px;
+  background: var(--paper);
+  position: relative;
+  box-shadow: 0 0 80px rgba(0,0,0,0.25);
+  height: 100vh;
+  overflow: hidden;
+}
+
+#cursor {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: multiply;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+  mix-blend-mode: multiply;
+}
+#cursor.big { width: 40px; height: 40px; }
+
+.page {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  overflow-y: auto;
+  transition: transform 0.7s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.7s ease;
+  will-change: transform, opacity;
+}
+
+#site-wrap {
+  height: 100vh;
+  overflow: hidden;
+}
+.page.hidden-up    { transform: translateY(-100vh); opacity: 0; pointer-events: none; }
+.page.hidden-down  { transform: translateY(100vh);  opacity: 0; pointer-events: none; }
+.page.active       { transform: translate(0,0);     opacity: 1; pointer-events: all; }
+
+/* ── HOME ── */
+.home-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 52px);
+}
+
+.home-left {
+  padding: 80px 56px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--light);
+}
+
+.home-right {
+  padding: 60px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: var(--paper2);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-right::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,75,47,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+
+.home-name {
+  font-family: var(--serif);
+  font-size: clamp(48px, 6.5vw, 88px);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-top: 20px;
+}
+.home-name em { font-style: italic; color: var(--accent); }
+
+.home-tagline {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--mid);
+  line-height: 1.65;
+  margin-top: 28px;
+  max-width: 380px;
+}
+
+.home-nav { display: flex; flex-direction: column; gap: 0; margin-top: 52px; }
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  border-top: 1px solid var(--light);
+  border-left: none; border-right: none; border-bottom: none;
+  background: none;
+  cursor: none;
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 300;
+  color: var(--ink);
+  text-align: left;
+  transition: padding-left 0.25s ease, color 0.2s;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+.nav-btn:last-child { border-bottom: 1px solid var(--light); }
+.nav-btn::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 0; background: var(--accent);
+  transition: width 0.25s ease;
+}
+.nav-btn:hover::before { width: 3px; }
+.nav-btn:hover { padding-left: 16px; color: var(--accent); }
+.nav-btn-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; position: relative; z-index: 1; }
+.nav-btn-num { font-family: var(--sans); font-size: 11px; color: var(--light); letter-spacing: 0.1em; display: flex; align-items: center; gap: 6px; }
+.nav-btn-arrow { opacity: 0; transform: translateX(-8px); transition: opacity 0.2s, transform 0.2s; }
+.nav-btn:hover .nav-btn-arrow { opacity: 1; transform: translateX(0); }
+
+.big-number {
+  font-family: var(--serif);
+  font-size: clamp(110px, 16vw, 200px);
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--light);
+  letter-spacing: -0.04em;
+  margin-bottom: -16px;
+  user-select: none;
+  position: relative; z-index: 1;
+}
+
+.home-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--light);
+  border: 1px solid var(--light);
+  margin-top: 36px;
+  position: relative; z-index: 1;
+}
+.stat-box { background: var(--paper2); padding: 22px; }
+.stat-num { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--accent); line-height: 1; }
+.stat-label { font-size: 10px; color: var(--mid); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+
+.home-footer {
+  padding: 16px 56px;
+  border-top: 1px solid var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--light);
+  letter-spacing: 0.06em;
+}
+
+/* ── INNER PAGES ── */
+.page-header {
+  padding: 56px 56px 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--light);
+}
+
+.back-btn {
+  display: flex; align-items: center; gap: 8px;
+  background: none; border: none; cursor: none;
+  font-family: var(--sans); font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--mid); transition: color 0.2s; padding: 0;
+}
+.back-btn:hover { color: var(--accent); }
+
+.page-title-block { text-align: right; }
+.page-title { font-family: var(--serif); font-size: clamp(32px, 4.5vw, 58px); font-weight: 300; line-height: 1; letter-spacing: -0.02em; }
+.page-title em { font-style: italic; color: var(--accent); }
+.page-subtitle { font-size: 11px; color: var(--mid); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 6px; }
+
+.page-body { padding: 52px 56px; }
+
+/* SKILLS */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--light);
+  border: 1px solid var(--light);
+  margin-bottom: 52px;
+}
+.skill-card {
+  background: var(--paper);
+  padding: 32px 28px;
+  transition: background 0.2s;
+  opacity: 0;
+  transform: translateY(24px);
+}
+.skill-card.entered {
+  opacity: 1;
+  transform: translateY(0);
+  transition: background 0.2s, opacity 0.5s ease, transform 0.5s ease;
+}
+.skill-card-body, .skill-tags {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.skill-card.content-in .skill-card-body,
+.skill-card.content-in .skill-tags {
+  opacity: 1;
+  transform: translateY(0);
+}
+.skill-card:hover { background: var(--paper2); }
+.skill-card-num { font-family: var(--serif); font-size: 12px; color: var(--light); margin-bottom: 18px; }
+.skill-card-title { font-family: var(--serif); font-size: 23px; font-weight: 300; line-height: 1.1; margin-bottom: 14px; }
+.skill-card-title em { font-style: italic; color: var(--accent); }
+.skill-card-body { font-size: 13px; color: var(--mid); line-height: 1.75; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 18px; }
+.tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border: 1px solid var(--light); color: var(--mid); }
+
+.section-label {
+  font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--mid); margin-bottom: 28px;
+  display: flex; align-items: center; gap: 16px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--light); }
+
+.strengths-list { display: flex; flex-direction: column; }
+.strength-item {
+  display: grid;
+  grid-template-columns: 72px 1fr 1fr;
+  gap: 28px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--light);
+  align-items: start;
+}
+.strength-num { font-family: var(--serif); font-style: italic; font-size: 13px; color: var(--light); padding-top: 3px; }
+.strength-name { font-family: var(--serif); font-size: 18px; font-weight: 300; line-height: 1.3; }
+.strength-desc { font-size: 13px; color: var(--mid); line-height: 1.75; }
+
+/* EXPERIENCE */
+.exp-list { display: flex; flex-direction: column; }
+.exp-item {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 48px;
+  padding: 44px 0;
+  border-bottom: 1px solid var(--light);
+}
+.exp-meta { padding-top: 4px; }
+.exp-date { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mid); margin-bottom: 6px; }
+.exp-company { font-family: var(--serif); font-size: 14px; color: var(--accent); }
+.exp-role { font-family: var(--serif); font-size: 26px; font-weight: 300; line-height: 1.1; margin-bottom: 14px; letter-spacing: -0.01em; }
+.exp-desc { font-size: 13px; color: var(--mid); line-height: 1.8; max-width: 600px; margin-bottom: 18px; }
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+.exp-bullets li { font-size: 13px; color: var(--mid); padding-left: 18px; position: relative; line-height: 1.65; }
+.exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
+
+/* PHILOSOPHY */
+.philosophy-hero {
+  background: var(--ink); color: var(--paper);
+  padding: 72px 56px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.philosophy-hero.entered {
+  opacity: 1;
+  transform: translateY(0);
+}
+.philosophy-quote {
+  font-family: var(--serif);
+  font-size: clamp(26px, 3.5vw, 48px);
+  font-weight: 300; font-style: italic;
+  line-height: 1.25; letter-spacing: -0.02em;
+  max-width: 780px;
+}
+.philosophy-quote em { color: var(--accent); font-style: normal; }
+
+.phil-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--light);
+  border: 1px solid var(--light);
+}
+.phil-card {
+  background: var(--paper);
+  padding: 44px 40px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.phil-card.entered {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.phil-card:nth-child(odd) { background: var(--paper2); }
+.phil-card-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+.phil-card-title { font-family: var(--serif); font-size: 22px; font-weight: 300; margin-bottom: 14px; line-height: 1.2; }
+.phil-card-body { font-size: 13px; color: var(--mid); line-height: 1.8; }
+
+.phil-closer {
+  padding: 52px 56px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 52px; align-items: center;
+  border-top: 1px solid var(--light);
+}
+.phil-closer-text { font-family: var(--serif); font-size: 19px; font-weight: 300; font-style: italic; line-height: 1.65; color: var(--mid); }
+.contact-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--light); margin-bottom: 10px; }
+.contact-email {
+  font-family: var(--serif); font-size: 26px; font-weight: 300;
+  color: var(--ink); text-decoration: none;
+  border-bottom: 1px solid var(--accent); padding-bottom: 3px;
+  transition: color 0.2s; display: inline-block;
+}
+.contact-email:hover { color: var(--accent); }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { opacity: 0; animation: fadeUp 0.55s ease forwards; }
+.delay-1 { animation-delay: 0.08s; }
+.delay-2 { animation-delay: 0.18s; }
+.delay-3 { animation-delay: 0.28s; }
+.delay-4 { animation-delay: 0.38s; }
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* HOME FACTS */
+.home-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  position: relative; z-index: 1;
+}
+.home-fact {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.home-fact-dash {
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--accent);
+  font-style: italic;
+  flex-shrink: 0;
+  width: 16px;
+}
+.home-fact-text {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
+.home-fact-text span {
+  color: var(--mid);
+  font-size: 13px;
+  display: block;
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* HOME PANEL */
+.home-panel { display: flex; flex-direction: column; position: relative; z-index: 1; }
+.home-panel-item { padding: 22px 0; border-top: 1px solid var(--light); }
+.home-panel-item:last-child { border-bottom: 1px solid var(--light); }
+.home-panel-headline { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 300; color: var(--ink); line-height: 1; letter-spacing: -0.01em; font-variant-numeric: lining-nums; }
+.home-panel-sub { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; color: var(--accent); margin-top: 5px; }
+
+/* ACHIEVEMENTS */
+.achievements-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 56px;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.achievements-section::before {
+  content: '';
+  position: absolute;
+  bottom: -120px; right: -120px;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,75,47,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.achievements-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 64px;
+}
+
+.achievements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.achievement-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 48px;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  align-items: start;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: transform, opacity;
+}
+
+.achievement-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+.achievement-item.visible { opacity: 1; transform: translateY(0); }
+.achievement-item.visible.scrolling { transition: none; }
+.achievement-item:nth-child(2) { transition-delay: 0.12s; }
+.achievement-item:nth-child(3) { transition-delay: 0.24s; }
+
+
+.achievement-index {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(255,255,255,0.2);
+  padding-top: 6px;
+}
+
+.achievement-right {}
+
+.achievement-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.achievement-headline {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.5vw, 46px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--paper);
+  margin-bottom: 14px;
+}
+
+.achievement-headline em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.achievement-detail {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.7;
+  max-width: 520px;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.2);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: none;
+}
+
+.scroll-arrow {
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-arrow::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  animation: scrollPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+.exp-divider {
+  padding: 48px 56px 0;
+  border-top: 1px solid var(--light);
+}
+
+.exp-divider-label {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .home-main { grid-template-columns: 1fr; }
+  .home-right { display: none; }
+  .home-left { padding: 36px 24px; }
+  .home-footer { padding: 16px 24px; flex-direction: column; gap: 6px; align-items: flex-start; }
+  .page-header { padding: 24px 24px 20px; flex-direction: column; gap: 14px; }
+  .page-title-block { text-align: left; }
+  .page-body { padding: 24px; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .strength-item { grid-template-columns: 1fr; gap: 6px; }
+  .exp-item { grid-template-columns: 1fr; gap: 12px; }
+  .phil-grid { grid-template-columns: 1fr; }
+  .phil-closer { grid-template-columns: 1fr; }
+  .philosophy-hero { padding: 40px 24px; }
+  .achievements-section { padding: 56px 24px; }
+  .achievement-item { grid-template-columns: 1fr; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<div id="site-wrap"><div id="cursor"></div>
+<a href="javascript:void(0)" id="portfolio-link" style="position:absolute;top:20px;left:24px;z-index:1000;font-family:var(--sans);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color 0.2s;">← Portfolio</a>
+
+<!-- ══ HOME ══ -->
+<div id="home" class="page active">
+  <div class="home-main">
+    <div class="home-left">
+      <div>
+        <div class="eyebrow fade-up delay-1">Senior Product Manager</div>
+        <h1 class="home-name fade-up delay-2">Alastair<br><em>Hadwen</em></h1>
+        <p class="home-tagline fade-up delay-3">Platform-focused PM with a technical foundation and a bias for real work over the performance of it. B2B SaaS, partner ecosystems, regulated industries.</p>
+      </div>
+      <nav class="home-nav fade-up delay-4">
+        <button class="nav-btn" onclick="goTo('skills','down')">
+          <div class="nav-btn-inner">
+            <span>Skills & Strengths</span>
+            <span class="nav-btn-num">01 <span class="nav-btn-arrow">→</span></span>
+          </div>
+        </button>
+        <button class="nav-btn" onclick="goTo('experience','down')">
+          <div class="nav-btn-inner">
+            <span>Experience</span>
+            <span class="nav-btn-num">02 <span class="nav-btn-arrow">→</span></span>
+          </div>
+        </button>
+        <button class="nav-btn" onclick="goTo('philosophy','down')">
+          <div class="nav-btn-inner">
+            <span>Philosophy</span>
+            <span class="nav-btn-num">03 <span class="nav-btn-arrow">→</span></span>
+          </div>
+        </button>
+      </nav>
+    </div>
+    <div class="home-right">
+      <div style="position:relative;z-index:1">
+        <div class="home-panel fade-up delay-2">
+          <div class="home-panel-item">
+            <div class="home-panel-headline">10 Years</div>
+            <div class="home-panel-sub">tech experience</div>
+          </div>
+          <div class="home-panel-item">
+            <div class="home-panel-headline">6 Years</div>
+            <div class="home-panel-sub">in product</div>
+          </div>
+          <div class="home-panel-item">
+            <div class="home-panel-headline">MSc Computer Science</div>
+            <div class="home-panel-sub">Cardiff University</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="home-footer">
+    <span>Available immediately · Berlin, Germany</span>
+    <span>Native English · B1 German</span>
+    <span>Alastair.Hadwen@gmail.com</span>
+  </div>
+</div>
+
+<!-- ══ SKILLS ══ -->
+<div id="skills" class="page hidden-down">
+  <div class="page-header">
+    
+    <div class="page-title-block">
+      <h2 class="page-title">Skills &amp; <em>Strengths</em></h2>
+      <div class="page-subtitle">What I bring to a team</div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-num">01</div>
+        <h3 class="skill-card-title">Building with <em>Intention</em></h3>
+        <p class="skill-card-body">My strongest instinct as a PM is finding features that do more than just satisfy the immediate ask — that also improve the underlying state of the product. Short-term wins should leave the architecture better than they found it, not just close a ticket.</p>
+        <div class="skill-tags">
+          <span class="tag">Product Architecture</span><span class="tag">Strategic Sequencing</span><span class="tag">DDD</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-num">02</div>
+        <h3 class="skill-card-title">Roadmap <em>Strategy</em></h3>
+        <p class="skill-card-body">Roadmaps that hold up to scrutiny. I take deprioritisation as seriously as prioritisation — stakeholder excitement alone is not proof of concept, and a roadmap without clear rejections isn't a strategy.</p>
+        <div class="skill-tags">
+          <span class="tag">Prioritisation</span><span class="tag">Stakeholder Alignment</span><span class="tag">OKRs</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-num">03</div>
+        <h3 class="skill-card-title">Technical <em>Depth</em></h3>
+        <p class="skill-card-body">Engineering background in Java, SQL, Angular, and DevOps. Comfortable in architecture conversations, able to make real trade-off calls, and technically literate enough that engineers don't have to translate for me.</p>
+        <div class="skill-tags">
+          <span class="tag">Java</span><span class="tag">SQL</span><span class="tag">DevOps</span><span class="tag">Domain-Driven Design</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-num">04</div>
+        <h3 class="skill-card-title">Platform &amp; <em>Integrations</em></h3>
+        <p class="skill-card-body">Partner APIs, webhook systems, internal tooling — making a platform genuinely reusable, not just technically open. Scaled Alteos from 5 to 20 partnerships a year without proportional headcount growth.</p>
+        <div class="skill-tags">
+          <span class="tag">API Design</span><span class="tag">Webhooks</span><span class="tag">B2B2C</span><span class="tag">Partner GTM</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-num">05</div>
+        <h3 class="skill-card-title">Regulated &amp; <em>Complex Environments</em></h3>
+        <p class="skill-card-body">Comfortable in high-complexity, fast-moving spaces — regulated industries, multi-stakeholder environments, and contexts where the brief changes faster than the plan. Fintech, Medtech, Insuretech, Ecotech across EU contexts.</p>
+        <div class="skill-tags">
+          <span class="tag">Fintech</span><span class="tag">Medtech</span><span class="tag">Insuretech</span><span class="tag">Ecotech</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-num">06</div>
+        <h3 class="skill-card-title">AI-<em>Augmented</em> Working</h3>
+        <p class="skill-card-body">I use AI tooling actively across the product lifecycle — accelerating discovery, structuring specs, stress-testing roadmap logic, and reducing the manual overhead that slows teams down. Not as a novelty but as a genuine workflow shift.</p>
+        <div class="skill-tags">
+          <span class="tag">AI Tooling</span><span class="tag">Workflow Automation</span><span class="tag">Cursor</span><span class="tag">Claude</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ EXPERIENCE ══ -->
+<div id="experience" class="page hidden-down">
+  <div class="page-header">
+    
+    <div class="page-title-block">
+      <h2 class="page-title"><em>Experience</em></h2>
+      <div class="page-subtitle">Where I've done the work</div>
+    </div>
+  </div>
+
+  <!-- ACHIEVEMENTS -->
+  <div class="achievements-section" id="achievements-section">
+    <div class="achievements-eyebrow">Selected achievements</div>
+    <div class="achievements-list">
+      <div class="achievement-item">
+        <div class="achievement-index">i.</div>
+        <div class="achievement-right">
+          <div class="achievement-label">Velocity</div>
+          <h3 class="achievement-headline">50% faster <em>time to market</em></h3>
+          <p class="achievement-detail">Scaled Alteos from 5 to 20 product launches per year through platform redesign, internal tooling, and a modular architecture that made each new partnership cheaper than the last.</p>
+        </div>
+      </div>
+      <div class="achievement-item">
+        <div class="achievement-index">ii.</div>
+        <div class="achievement-right">
+          <div class="achievement-label">Architecture</div>
+          <h3 class="achievement-headline">Decoupled invoicing <em>from payments</em></h3>
+          <p class="achievement-detail">Rearchitected Alteos's invoicing system to comply with German financial regulation — removing a structural constraint that had been blocking automation and costing the finance team significant manual overhead.</p>
+        </div>
+      </div>
+      <div class="achievement-item">
+        <div class="achievement-index">iii.</div>
+        <div class="achievement-right">
+          <div class="achievement-label">Enterprise partnerships</div>
+          <h3 class="achievement-headline">Bosch · Porsche · <em>Aldi · Lufthansa</em></h3>
+          <p class="achievement-detail">Led product across multi-million euro partnerships at Alteos and CEEZER — navigating complex technical and commercial requirements at enterprise scale.</p>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>timeline</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="exp-divider">
+    <div class="exp-divider-label">Timeline</div>
+  </div>
+  <div class="page-body">
+    <div class="exp-list">
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-date">Aug 2025 — Jan 2026</div>
+          <div class="exp-company">CEEZER GmbH</div>
+        </div>
+        <div class="exp-right">
+          <h3 class="exp-role">Senior Product Manager</h3>
+          <ul class="exp-bullets">
+            <li>Mapped end-to-end customer journey, surfacing friction and workflow duplication at an operator level</li>
+            <li>Restructured roadmap to balance short-term usability improvements with BD-defined growth priorities</li>
+            <li>Drove AI-based streamlining of complex data ingestion in the carbon supply pipeline</li>
+          </ul>
+          <div class="skill-tags">
+            <span class="tag">Ecotech</span><span class="tag">Platform</span><span class="tag">AI Tooling</span><span class="tag">Enterprise</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-date">Jan — Aug 2025</div>
+          <div class="exp-company">Sabbatical</div>
+        </div>
+        <div class="exp-right">
+          <h3 class="exp-role">Deliberate pause</h3>
+          <ul class="exp-bullets">
+            <li>Passed B1 German exam</li>
+            <li>Intensive Arabic study and cultural immersion in Jordan</li>
+            <li>Technical side projects — vibe-coded tools and games as PM skill development</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-date">Mar 2021 — Jan 2025</div>
+          <div class="exp-company">Alteos GmbH</div>
+        </div>
+        <div class="exp-right">
+          <h3 class="exp-role">Lead Product Manager</h3>
+          <ul class="exp-bullets">
+            <li>Scaled platform partnerships from 5 to 20 per year — same operators, wider product range, no proportional headcount growth</li>
+            <li>Cut time-to-market by over 50% through admin platform redesign and webhook service improvements</li>
+            <li>Led product for multi-million euro partnerships including Bosch, Porsche, and Aldi</li>
+            <li>Implemented Domain-Driven Design with the Principal Engineer; championed modularity-first engineering culture</li>
+            <li>Identified and deprioritised partnerships with poor ROI — built the case for saying no</li>
+          </ul>
+          <div class="skill-tags">
+            <span class="tag">Insuretech</span><span class="tag">Platform</span><span class="tag">API</span><span class="tag">DDD</span><span class="tag">B2B2C</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-date">Nov 2018 — Mar 2021</div>
+          <div class="exp-company">Trakcel Ltd</div>
+        </div>
+        <div class="exp-right">
+          <h3 class="exp-role">Product Owner → Product Engineer</h3>
+          <ul class="exp-bullets">
+            <li>Moved from engineering into product on the same platform — full lifecycle context from both sides</li>
+            <li>Implemented rapid configuration system for partner integration, significantly reducing onboarding time</li>
+            <li>Developed in Java, SQL, and Angular; implemented SSO through Okta</li>
+          </ul>
+          <div class="skill-tags">
+            <span class="tag">Medtech</span><span class="tag">Java</span><span class="tag">SQL</span><span class="tag">Regulated</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-date">Jan — Nov 2018</div>
+          <div class="exp-company">Admiral Plc</div>
+        </div>
+        <div class="exp-right">
+          <h3 class="exp-role">DevOps Engineer</h3>
+          <ul class="exp-bullets">
+            <li>Identified team bottlenecks, initiated department-wide project to improve deployment velocity</li>
+            <li>Automated processes using Docker, AWS, Jenkins, and Ansible</li>
+          </ul>
+          <div class="skill-tags">
+            <span class="tag">Fintech</span><span class="tag">Docker</span><span class="tag">AWS</span><span class="tag">CI/CD</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-meta">
+          <div class="exp-date">Jul 2020 — Present</div>
+          <div class="exp-company">Cardiff University · Private</div>
+        </div>
+        <div class="exp-right">
+          <h3 class="exp-role">Product Mentor</h3>
+          <ul class="exp-bullets">
+            <li>Annual programme for MSc students and alumni at Cardiff University</li>
+            <li>Ongoing mentorship of 4 product professionals across Europe and the Middle East</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--light);">
+      <div class="section-label">Education</div>
+      <div class="strength-item reveal">
+        <span class="strength-num">—</span>
+        <span class="strength-name">MSc Computer Science</span>
+        <span class="strength-desc">Cardiff University, 2016–2018</span>
+      </div>
+      <div class="strength-item reveal">
+        <span class="strength-num">—</span>
+        <span class="strength-name">BA Philosophy</span>
+        <span class="strength-desc">Cardiff University, 2012–2015</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHILOSOPHY ══ -->
+<div id="philosophy" class="page hidden-down">
+  <div class="page-header">
+    
+    <div class="page-title-block">
+      <h2 class="page-title"><em>Philosophy</em></h2>
+      <div class="page-subtitle">How I think about product</div>
+    </div>
+  </div>
+  <div class="philosophy-hero">
+    <p class="philosophy-quote">"I want a pragmatic setting that values <em>real work</em> over the performance of productivity."</p>
+  </div>
+  <div class="phil-grid">
+    <div class="phil-card">
+      <div class="phil-card-label">On roadmaps</div>
+      <h3 class="phil-card-title">Stakeholder excitement is not proof of concept</h3>
+      <p class="phil-card-body">A roadmap that absorbs every excited request isn't a strategy, it's a list. The hard work is defending what doesn't make the cut — and building the case for it properly.</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-card-label">On platforms</div>
+      <h3 class="phil-card-title">Speed is a product decision, not just an engineering one</h3>
+      <p class="phil-card-body">Getting from 5 to 20 partnerships a year at Alteos wasn't a headcount story — it was a platform architecture story. Product decisions that enable speed compound. The ones that don't eventually stop you.</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-card-label">On teams</div>
+      <h3 class="phil-card-title">Understand the problem and solution space deeply — not just vibes</h3>
+      <p class="phil-card-body">Vision without context doesn't scale. I stay close to the technical and user reality — not to micromanage, but because context is what makes real autonomy possible.</p>
+    </div>
+    <div class="phil-card">
+      <div class="phil-card-label">On ambiguity</div>
+      <h3 class="phil-card-title">Disruption is a working environment, not an excuse</h3>
+      <p class="phil-card-body">I don't need a clear brief to be effective. The plan changing is not a failure state — it's just Tuesday.</p>
+    </div>
+  </div>
+  <div class="phil-closer">
+    <div class="phil-closer-text reveal">
+  <p style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--light);margin-bottom:12px;">Outside work</p>
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
+    <li style="font-family:var(--serif);font-size:17px;font-weight:300;font-style:italic;color:var(--mid);">Fiction — classic and contemporary</li>
+    <li style="font-family:var(--serif);font-size:17px;font-weight:300;font-style:italic;color:var(--mid);">Bouldering, tennis, calisthenics</li>
+    <li style="font-family:var(--serif);font-size:17px;font-weight:300;font-style:italic;color:var(--mid);">Philosophy — best enjoyed over coffee</li>
+  </ul>
+</div>
+    <div class="reveal">
+      <div class="contact-label">Get in touch</div>
+      <a href="mailto:Alastair.Hadwen@gmail.com" class="contact-email">Alastair.Hadwen@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('button, a').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+});
+
+document.getElementById('portfolio-link').addEventListener('click', e => {
+  e.preventDefault();
+  if (current !== 'home') goTo('home', 'up');
+});
+
+const pages = {
+  home: document.getElementById('home'),
+  skills: document.getElementById('skills'),
+  experience: document.getElementById('experience'),
+  philosophy: document.getElementById('philosophy')
+};
+let current = 'home';
+
+function goTo(target, direction) {
+  if (target === current) return;
+  const cur = pages[current], tgt = pages[target];
+  const inClass = direction === 'down' ? 'hidden-down' : 'hidden-up';
+  const outClass = direction === 'down' ? 'hidden-up' : 'hidden-down';
+  tgt.classList.remove('hidden-up', 'hidden-down');
+  tgt.classList.add(inClass);
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    tgt.classList.remove(inClass);
+    tgt.classList.add('active');
+    cur.classList.remove('active');
+    cur.classList.add(outClass);
+    tgt.scrollTop = 0;
+    current = target;
+    updateNavLink(target);
+    setTimeout(() => {
+      initReveal(tgt);
+      if (target === 'experience') initAchievements();
+      if (target === 'skills') initSkills();
+      if (target === 'philosophy') initPhilosophy();
+    }, 80);
+  }));
+}
+
+function updateNavLink(page) {
+  const link = document.getElementById('portfolio-link');
+  link.textContent = page === 'home' ? '← Portfolio' : '← Back';
+}
+
+function initReveal(container) {
+  const els = container.querySelectorAll('.reveal');
+  els.forEach(el => el.classList.remove('visible'));
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08, root: container });
+  els.forEach(el => obs.observe(el));
+}
+
+initReveal(document.getElementById('home'));
+
+// Achievements scroll reveal + staggered exit
+const achievementObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); achievementObs.unobserve(e.target); } });
+}, { threshold: 0.15 });
+
+function initAchievements() {
+  document.querySelectorAll('.achievement-item').forEach(el => {
+    el.classList.remove('visible', 'exit');
+    achievementObs.observe(el);
+  });
+}
+
+// Scroll-linked exit — each item driven directly by its own scroll position
+const expPage = document.getElementById('experience');
+expPage.addEventListener('scroll', updateAchievementScroll);
+
+function updateAchievementScroll() {
+  const items = document.querySelectorAll('.achievement-item.visible');
+  const viewH = expPage.clientHeight;
+  items.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const mid = viewH * 0.45;
+    const distAboveMid = mid - rect.bottom;
+    if (distAboveMid > 0) {
+      el.classList.add('scrolling');
+      const progress = Math.min(1, distAboveMid / 180);
+      el.style.opacity = 1 - progress;
+      el.style.transform = `translateY(${-progress * 60}px) scale(${1 - progress * 0.05})`;
+    } else {
+      el.classList.remove('scrolling');
+      el.style.opacity = '';
+      el.style.transform = '';
+    }
+  });
+}
+
+function initPhilosophy() {
+  const hero = document.querySelector('.philosophy-hero');
+  const cards = document.querySelectorAll('.phil-card');
+  const closer = document.querySelectorAll('.phil-closer .reveal');
+  hero.classList.remove('entered');
+  cards.forEach(el => el.classList.remove('entered'));
+  // Phase 1: hero quote fades in
+  setTimeout(() => hero.classList.add('entered'), 200);
+  // Phase 2: cards stagger in after hero
+  cards.forEach((el, i) => {
+    setTimeout(() => el.classList.add('entered'), 800 + i * 100);
+  });
+}
+
+function initSkills() {
+  const cards = Array.from(document.querySelectorAll('.skill-card'));
+  cards.forEach(el => { el.classList.remove('entered', 'content-in'); });
+  // Phase 1: cards enter with title visible, body hidden — 200ms lead-in pause
+  cards.forEach((el, i) => {
+    setTimeout(() => el.classList.add('entered'), 400 + i * 80);
+  });
+  // Phase 2: body populates in reverse order — 300ms pause after last card
+  const phase2Start = 400 + cards.length * 80 + 500;
+  const reversed = [...cards].reverse();
+  reversed.forEach((el, i) => {
+    setTimeout(() => el.classList.add('content-in'), phase2Start + i * 80);
+  });
+}
+</script>
+</div>
+</body>
+</html>
