@@ -574,6 +574,23 @@ body {
   margin-bottom: 0;
 }
 
+/* TOP NAV LINK */
+#top-nav-link {
+  position: absolute;
+  z-index: 1001;
+  top: 20px;
+  left: 24px;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  transition: color 0.2s;
+  cursor: none;
+}
+#top-nav-link:hover { color: var(--accent); }
+
 @media (max-width: 768px) {
   .home-main { grid-template-columns: 1fr; }
   .home-right { display: none; }
@@ -595,8 +612,11 @@ body {
 </head>
 <body>
 
-<div id="site-wrap"><div id="cursor"></div>
-<a href="https://ahadwen.github.io/Portfolio/" id="portfolio-link" style="position:absolute;top:20px;left:24px;z-index:1000;font-family:var(--sans);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color 0.2s;">← Portfolio</a>
+<div id="site-wrap">
+  <div id="cursor"></div>
+
+  <!-- Single top-left nav link — switches between portfolio URL and back-button behaviour -->
+  <a href="https://ahadwen.github.io/Portfolio/" id="top-nav-link">← Portfolio</a>
 
 <!-- ══ HOME ══ -->
 <div id="home" class="page active">
@@ -950,10 +970,8 @@ document.querySelectorAll('button, a').forEach(el => {
   el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
 });
 
-document.getElementById('portfolio-link').addEventListener('click', e => {
-  e.preventDefault();
-  if (current !== 'home') goTo('home', 'up');
-});
+const portfolioUrl = 'https://ahadwen.github.io/Portfolio/';
+const navLink = document.getElementById('top-nav-link');
 
 const pages = {
   home: document.getElementById('home'),
@@ -962,6 +980,27 @@ const pages = {
   philosophy: document.getElementById('philosophy')
 };
 let current = 'home';
+
+// The link's behaviour depends entirely on which page is active:
+// — on home: it's a real link, navigates away to portfolio (default behaviour, no JS needed)
+// — on inner pages: it acts as a back button (preventDefault, goTo home)
+navLink.addEventListener('click', e => {
+  if (current !== 'home') {
+    e.preventDefault();
+    goTo('home', 'up');
+  }
+  // on home: do nothing — let the href navigate naturally
+});
+
+function updateNavLink(page) {
+  if (page === 'home') {
+    navLink.textContent = '← Portfolio';
+    navLink.href = portfolioUrl;
+  } else {
+    navLink.textContent = '← Back';
+    navLink.href = '#'; // purely cosmetic; click is intercepted
+  }
+}
 
 function goTo(target, direction) {
   if (target === current) return;
@@ -985,11 +1024,6 @@ function goTo(target, direction) {
       if (target === 'philosophy') initPhilosophy();
     }, 80);
   }));
-}
-
-function updateNavLink(page) {
-  const link = document.getElementById('portfolio-link');
-  link.textContent = page === 'home' ? '← Portfolio' : '← Back';
 }
 
 function initReveal(container) {
@@ -1042,12 +1076,9 @@ function updateAchievementScroll() {
 function initPhilosophy() {
   const hero = document.querySelector('.philosophy-hero');
   const cards = document.querySelectorAll('.phil-card');
-  const closer = document.querySelectorAll('.phil-closer .reveal');
   hero.classList.remove('entered');
   cards.forEach(el => el.classList.remove('entered'));
-  // Phase 1: hero quote fades in
   setTimeout(() => hero.classList.add('entered'), 200);
-  // Phase 2: cards stagger in after hero
   cards.forEach((el, i) => {
     setTimeout(() => el.classList.add('entered'), 800 + i * 100);
   });
@@ -1056,11 +1087,9 @@ function initPhilosophy() {
 function initSkills() {
   const cards = Array.from(document.querySelectorAll('.skill-card'));
   cards.forEach(el => { el.classList.remove('entered', 'content-in'); });
-  // Phase 1: cards enter with title visible, body hidden — 200ms lead-in pause
   cards.forEach((el, i) => {
     setTimeout(() => el.classList.add('entered'), 400 + i * 80);
   });
-  // Phase 2: body populates in reverse order — 300ms pause after last card
   const phase2Start = 400 + cards.length * 80 + 500;
   const reversed = [...cards].reverse();
   reversed.forEach((el, i) => {
