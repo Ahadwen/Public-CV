@@ -13,30 +13,24 @@ img { width: 100%; height: auto; display: block; border: 1px solid #ddd; margin-
 </head>
 <body>
 <div class="wrap">
-  <a class="download" id="download" href="cv/Alastair_Hadwen_CV.pdf" download="Alastair_Hadwen_CV.pdf">Download PDF</a>
+  <a class="download" href="cv/Alastair_Hadwen_CV.pdf" download="Alastair_Hadwen_CV.pdf">Download PDF</a>
   <img src="cv/page-1.png" alt="CV page 1">
   <img src="cv/page-2.png" alt="CV page 2">
 </div>
 <script>
-// Logs a view (and a download) in the Apryl Supabase project's apryl_visit_log table, with only the
-// time and the browser's time zone. No IP address or anything else. Local development isn't counted.
-// Needs supabase/0001_cv_page_visits.sql applied once; until then the calls fail silently.
+// Counts a view with the existing apryl_count_visit function (apryl_visits and apryl_visit_log),
+// storing only the time and the browser's time zone. Local development isn't counted.
 (function () {
-  var URL = 'https://vefbvrgnobfapzosivag.supabase.co/rest/v1/rpc/log_page_visit';
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:') return;
   var KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZlZmJ2cmdub2JmYXB6b3NpdmFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4ODYzMzMsImV4cCI6MjA5NDQ2MjMzM30.oc213yAZjzYKOM-Bqg7aJUZae6T9Ax3MuoRQBIEz-gQ';
-  function log(page) {
-    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:') return;
-    var tz = null;
-    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || null; } catch (e) {}
-    fetch(URL, {
-      method: 'POST',
-      headers: { apikey: KEY, authorization: 'Bearer ' + KEY, 'content-type': 'application/json' },
-      body: JSON.stringify({ p_page: page, p_time_zone: tz }),
-      keepalive: true
-    }).catch(function () {});
-  }
-  log('cv');
-  document.getElementById('download').addEventListener('click', function () { log('cv_download'); });
+  var tz = null;
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || null; } catch (e) {}
+  fetch('https://vefbvrgnobfapzosivag.supabase.co/rest/v1/rpc/apryl_count_visit', {
+    method: 'POST',
+    headers: { apikey: KEY, authorization: 'Bearer ' + KEY, 'content-type': 'application/json' },
+    body: JSON.stringify({ p_time_zone: tz }),
+    keepalive: true
+  }).catch(function () {});
 })();
 </script>
 </body>
