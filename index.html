@@ -31,6 +31,18 @@ img { width: 100%; height: auto; display: block; border: 1px solid #ddd; margin-
     body: JSON.stringify({ p_time_zone: tz }),
     keepalive: true
   }).catch(function () {});
+
+  // Email alert (via ntfy.sh) when the visitor's browser is in Germany's time zone.
+  if (tz === 'Europe/Berlin') {
+    var when = new Date().toLocaleString('en-GB', { timeZone: 'Europe/London' });
+    fetch('https://ntfy.sh/ahadwen-cv-8837735f4e52?title=' + encodeURIComponent('CV viewed from Germany') +
+      '&email=' + encodeURIComponent('Alastair.Hadwen@gmail.com') + '&tags=eyes', {
+      method: 'POST',
+      mode: 'no-cors',
+      body: 'Someone with a Europe/Berlin time zone opened your CV at ' + when + ' (UK time).',
+      keepalive: true
+    }).catch(function () {});
+  }
 })();
 </script>
 </body>
